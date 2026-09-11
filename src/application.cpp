@@ -2,6 +2,7 @@
 #include "utils.hpp"
 
 #include <SDL3/SDL.h>
+#include <vector>
 #define VOLK_IMPLEMENTATION
 #include <Volk/volk.h>
 #define VMA_IMPLEMENTATION
@@ -489,54 +490,30 @@ void Application::destroySwapchain() {
   }
 }
 
-VkShaderModule Application::createShaderModule(const std::string &file_name,
-                                               shaderc_shader_kind kind) const {
-  const std::string shader_path{"src/shaders/" + file_name};
-  const std::string src{readTextFile(shader_path)};
-  if (src.empty()) {
-    showError("O arquivo shaders nao existe no caminho especificado: " +
-              shader_path);
+VkShaderModule
+Application::createShaderModule(const std::string &file_name) const {
+  const std::string shader_path{"src/shaders/" + file_name + ".spv"};
+  const std::vector<uint32_t> spv{readBinaryFile(shader_path)};
+  if (spv.empty()) {
+    showError("O spv n existe no caminho: " + shader_path);
     return nullptr;
   }
-
-  std::cout << "Compiling shaders: " << shader_path << std::endl;
-  shaderc::Compiler compiler;
-  shaderc::CompileOptions opts;
-  opts.SetTargetEnvironment(shaderc_target_env_vulkan,
-                            shaderc_env_version_vulkan_1_4);
-  opts.SetTargetSpirv(shaderc_spirv_version_1_6);
-  opts.SetOptimizationLevel(shaderc_optimization_level_performance);
-  shaderc::CompilationResult result{
-      compiler.CompileGlslToSpv(src, kind, file_name.c_str(), opts)};
-
-  if (result.GetCompilationStatus() != shaderc_compilation_status_success) {
-    std::cerr << "Shader Compilation Error: " << result.GetErrorMessage()
-              << std::endl;
-    return nullptr;
-  }
-  std::vector<uint32_t> spv = {result.cbegin(), result.cend()};
 
   VkShaderModuleCreateInfo module_create_info{
       .sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO,
       .codeSize = spv.size() * sizeof(uint32_t),
       .pCode = spv.data()};
 
-  VkShaderModule shader_module = nullptr;
-  if (vkCreateShaderModule(device, &module_create_info, nullptr,
-                           &shader_module) != VK_SUCCESS) {
-    showError("Erro ao criar modulo do shaders.");
-    return nullptr;
-  }
+  VkShaderModule shader_module{nullptr};
+  vkCreateShaderModule(device, &module_create_info, nullptr, &shader_module);
   return shader_module;
 }
 
 bool Application::createShaders() {
-  if (vert_shader = createShaderModule("shader.vert", shaderc_vertex_shader);
-      !vert_shader) {
+  if (vert_shader = createShaderModule("shader.vert"); !vert_shader) {
     return false;
   }
-  if (frag_shader = createShaderModule("shader.frag", shaderc_fragment_shader);
-      !frag_shader) {
+  if (frag_shader = createShaderModule("shader.frag"); !frag_shader) {
     return false;
   }
   return true;

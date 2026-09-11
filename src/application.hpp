@@ -80,8 +80,7 @@ class Application {
   bool initializeVMA();
   bool createSwapchain(uint32_t width, uint32_t height);
   void destroySwapchain();
-  VkShaderModule createShaderModule(const std::string &fileName,
-                                    shaderc_shader_kind kind) const;
+  VkShaderModule createShaderModule(const std::string &fileName) const;
   bool createShaders();
   VkPipeline createGraphicsPipeline();
   bool createSyncResources();
