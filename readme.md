@@ -1,4 +1,4 @@
-**Salkantkay (QueroMandioca)**
+**nkrhuap-engine**
 
 This project is a hardware-accelerated graphics application built with C++26, leveraging modern Vulkan features for efficient rendering. It initializes a resizable graphical window and manages a dedicated swapchain to present rendered frames directly to the user.
 
