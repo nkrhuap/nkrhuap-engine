@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(QueroMandioca)
+project(nkrhuap)
 
 find_package(SDL3 REQUIRED)
 find_package(Vulkan REQUIRED COMPONENTS volk shaderc_combined)
@@ -48,7 +48,7 @@ endforeach()
 add_custom_target(CompileShaders ALL DEPENDS ${SPV_OUTPUTS})
 # FIM - COMPILAR HLSL PARA SPIR-V
 
-add_executable(vulkanapp
+add_executable(nkrhuap
   "src/main.cpp"
   "src/application.hpp"
   "src/application.cpp"
@@ -60,12 +60,12 @@ set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(MSVC)
-  target_compile_options(vulkanapp PRIVATE /std:c++latest)
+  target_compile_options(nkrhuap PRIVATE /std:c++latest)
 endif()
 
-add_dependencies(vulkanapp CompileShaders)
+add_dependencies(nkrhuap CompileShaders)
 
-target_link_libraries(vulkanapp PRIVATE
+target_link_libraries(nkrhuap PRIVATE
   Vulkan::Vulkan
   Vulkan::volk
   Vulkan::shaderc_combined
