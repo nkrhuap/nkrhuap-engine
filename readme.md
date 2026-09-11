@@ -33,3 +33,5 @@ The application abstracts the verbose Vulkan setup into a centralized `Applicati
 
 
 * Install the Vulkan SDK, which provides the necessary DXC executable for shader compilation.
+
+* Configure the build using CMake and the vcpkg toolchain to automatically resolve and build dependencies like SDL3 and GLM.  
