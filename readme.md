@@ -1,6 +1,6 @@
 **nkrhuap-engine**
 
-This project is a hardware-accelerated graphics application built with C++26, leveraging modern Vulkan features for efficient rendering. It initializes a resizable graphical window and manages a dedicated swapchain to present rendered frames directly to the user.
+This project is a hardware-accelerated graphics application built with C++23, leveraging modern Vulkan features for efficient rendering. It initializes a resizable graphical window and manages a dedicated swapchain to present rendered frames directly to the user.
 
 **Core Application APIs & Dependencies**
 
@@ -29,7 +29,7 @@ The application abstracts the verbose Vulkan setup into a centralized `Applicati
 
 **Build Instructions**
 
-* Ensure a C++26 compatible compiler is installed (such as Clang-cl or MSVC).
+* Ensure a C++23 compatible compiler is installed (such as Clang-cl or MSVC).
 
 
 * Install the Vulkan SDK, which provides the necessary DXC executable for shader compilation.
