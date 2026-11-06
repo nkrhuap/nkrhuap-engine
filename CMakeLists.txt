@@ -48,12 +48,12 @@ endforeach()
 add_custom_target(CompileShaders ALL DEPENDS ${SPV_OUTPUTS})
 # FIM - COMPILAR HLSL PARA SPIR-V
 
-add_executable(nkrhuap
-  "src/main.cpp"
+add_library(nkrhuap
   "src/application.hpp"
   "src/application.cpp"
   "src/utils.hpp"
   "src/utils.cpp"
+  "src/api_bridge.cpp"
 )
 
 set(CMAKE_CXX_STANDARD 26)
@@ -64,6 +64,8 @@ if(MSVC)
 endif()
 
 add_dependencies(nkrhuap CompileShaders)
+
+target_compile_definitions(nkrhuap PRIVATE BUILD_DLL)
 
 target_link_libraries(nkrhuap PRIVATE
   Vulkan::Vulkan
