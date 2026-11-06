@@ -3,8 +3,8 @@ pub struct Application {
     _private: [u8; 0],
 }
 
-#[link(name = "nkrhuap_engine", kind = "dylib")]
-extern "C" {
+#[link(name = "nkrhuap", kind = "dylib")]
+unsafe extern "C" {
     fn nkrhuap_create_app() -> *mut Application;
     fn nkrhuap_poll_events(app: *mut Application) -> bool;
     fn nkrhuap_render_frame(app: *mut Application);
@@ -20,7 +20,7 @@ fn main() {
         }
 
         loop {
-            let running = nkrhua_poll_events(app);
+            let running = nkrhuap_poll_events(app);
             if !running {
                 break;
             }
