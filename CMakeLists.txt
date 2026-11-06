@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 project(nkrhuap)
 
-find_package(SDL3 REQUIRED)
+find_package(sdl3 REQUIRED)
 find_package(Vulkan REQUIRED COMPONENTS volk shaderc_combined)
 find_package(glm REQUIRED)
 
