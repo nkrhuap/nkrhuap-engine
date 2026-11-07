@@ -1,41 +1,68 @@
-# =========================
-# CMake / C++ Build Artifacts
-# =========================
-/build/
-/.cache/
-CMakeCache.txt
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Linker files
+*.ilk
+
+# Debugger Files
+*.pdb
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+*.so.*
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Build directories
+build/
+Build/
+build-*/
+
+# CMake generated files
 CMakeFiles/
-CMakeScripts/
-Testing/
-Makefile
+CMakeCache.txt
 cmake_install.cmake
+Makefile
 install_manifest.txt
 compile_commands.json
-CTestTestfile.cmake
-_deps/
-CMakeUserPresets.json
 
-# =========================
-# IDEs & Editores (CLion, VS, VSCode)
-# =========================
-.vs/
-.idea/
-*.user
-*.suo
-*.sln.docstates
-
-# =========================
-# Rust / Cargo
-# =========================
-/salkantkay/target/
-Cargo.lock
-
-# =========================
-# Sistema Operacional / Logs
-# =========================
-Thumbs.db
-ehthumbs.ini
-Desktop.ini
-$RECYCLE.BIN/
+# Temporary files
+*.tmp
 *.log
-.DS_Store
+*.bak
+*.swp
+
+# vcpkg
+vcpkg_installed/
+
+# debug information files
+*.dwo
+
+# test output & cache
+Testing/
+.cache/
