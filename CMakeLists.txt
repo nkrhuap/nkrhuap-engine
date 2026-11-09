@@ -48,7 +48,7 @@ endforeach()
 add_custom_target(CompileShaders ALL DEPENDS ${SPV_OUTPUTS})
 # FIM - COMPILAR HLSL PARA SPIR-V
 
-add_library(nkrhuap
+add_library(nkrhuap SHARED
   "src/application.hpp"
   "src/application.cpp"
   "src/utils.hpp"
@@ -60,11 +60,11 @@ target_include_directories(nkrhuap PUBLIC
 include
 )
 
-set(CMAKE_CXX_STANDARD 26)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(MSVC)
-  target_compile_options(nkrhuap PRIVATE /std:c++latest)
+  target_compile_options(nkrhuap PRIVATE /std:c++23)
 endif()
 
 add_dependencies(nkrhuap CompileShaders)

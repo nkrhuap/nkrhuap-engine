@@ -1,5 +1,6 @@
 #include "application.hpp"
 #include "nkrhuap_api.hpp"
+#include <SDL3/SDL.h>
 
 extern "C" {
 
@@ -28,6 +29,7 @@ NK_EXPORT bool nkrhuap_poll_events(Application *app) {
 
 NK_EXPORT void nkrhuap_render_frame(Application *app) {
   if (app) {
+    app->render();
   }
 }
 

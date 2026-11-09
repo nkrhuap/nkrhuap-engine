@@ -85,9 +85,9 @@ class Application {
   VkPipeline createGraphicsPipeline();
   bool createSyncResources();
   bool createCommandBuffers();
-  void render();
 
 public:
+  void render();
   bool initialize();
   void shutdown();
   void run();

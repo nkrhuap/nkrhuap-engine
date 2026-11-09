@@ -10,7 +10,7 @@ extern "C" {
 struct Application;
 
 NK_EXPORT Application *nkrhuap_create_app();
-NK_EXPORT bool nkrhuap_pool_events(Application *app);
+NK_EXPORT bool nkrhuap_poll_events(Application *app);
 NK_EXPORT void nkrhuap_render_frame(Application *app);
 NK_EXPORT void nkrhuap_destroy_app(Application *app);
 }
