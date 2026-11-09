@@ -44,7 +44,7 @@ fn main() {
     let target_dir = Path::new(&manifest_dir).join("target").join(profile);
 
     let dll_source = build_dir.join("nkrhuap.dll");
-    if (dll_source.exists()) {
+    if dll_source.exists() {
         std::fs::copy(&dll_source, target_dir.join("nkrhuap.dll"))
             .expect("Falha ao copiar nkrhuap.dll para o target");
     }
