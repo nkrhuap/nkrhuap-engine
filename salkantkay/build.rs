@@ -1,4 +1,5 @@
 use std::env::{self};
+use std::path::Path;
 use std::process::Command;
 
 fn main() {
@@ -38,6 +39,15 @@ fn main() {
         .expect("Falha ao compilar a engine");
     assert!(build_status.success());
 
+    let profile = env::var("PROFILE").unwrap();
+    let manifest_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
+    let target_dir = Path::new(&manifest_dir).join("target").join(profile);
+
+    let dll_source = build_dir.join("nkrhuap.dll");
+    if (dll_source.exists()) {
+        std::fs::copy(&dll_source, target_dir.join("nkrhuap.dll"))
+            .expect("Falha ao copiar nkrhuap.dll para o target");
+    }
     println!(
         "cargo:rustc-link-search=native={}",
         build_dir.to_str().unwrap()
