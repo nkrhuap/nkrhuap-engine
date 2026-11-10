@@ -59,6 +59,7 @@ flowchart TD
 - Rust toolchain
 - CMake and Ninja
 - Vulkan SDK (v1.14)
+- DXC (É o DirectX Shader Compiler)
 
 ```bash
 cd salkantkay/
