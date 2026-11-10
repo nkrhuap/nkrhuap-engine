@@ -2,9 +2,9 @@
 
   # nkrhuap engine
 
-</div>
-
 **Um motor gráfico e computacional de baixo nível em C++23 e Vulkan 1.4, consumido por um cliente em Rust.**
+
+</div>
 
 ## Tese
 - Layouts contíguos e amigáveis ao cache L1/L2/L3, seguindo os principios de Data-Oriented Design e ademais ideias que circulam a Computação de Alto Desempenho;
