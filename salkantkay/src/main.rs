@@ -1,15 +1,5 @@
-#[repr(C)]
-pub struct Application {
-    _private: [u8; 0],
-}
-
-#[link(name = "nkrhuap", kind = "dylib")]
-unsafe extern "C" {
-    fn nkrhuap_create_app() -> *mut Application;
-    fn nkrhuap_poll_events(app: *mut Application) -> bool;
-    fn nkrhuap_render_frame(app: *mut Application);
-    fn nkrhuap_destroy_app(app: *mut Application);
-}
+mod ffi;
+mod window;
 
 fn main() {
     unsafe {
