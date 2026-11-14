@@ -67,12 +67,21 @@ fn main() {
         "cargo:rustc-link-search=native={}",
         build_dir.to_str().unwrap()
     );
+
+    if target_os == "windows" {
+        vcpkg::Config::new()
+            .emit_includes(true)
+            .find_package("sdl3")
+            .expect("Não foi possivel encontrar o SDL3 via vcpkg");
+    } else {
+        print!("cargo:rustc-link-lib=dylib=SDL3")
+    }
+
     println!("cargo:rustc-link-lib=dylib=nkrhuap");
-    println!("cargo:rustc-link-lib=dylib=SDL3");
 
     //  No Linux, diz ao linker para embutir o diretório do binário como caminho de busca.
     if target_os == "linux" {
-        print!("cargo:rustc-link-arg=Wl,-rpath,$ORIGIN");
+        print!("cargo:rustc-link-arg=-Wl,-rpath,$ORIGIN");
     }
 
     println!("cargo:rerun-if-changed=../src/");
