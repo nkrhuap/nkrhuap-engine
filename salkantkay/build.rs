@@ -43,16 +43,37 @@ fn main() {
     let manifest_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
     let target_dir = Path::new(&manifest_dir).join("target").join(profile);
 
-    let dll_source = build_dir.join("nkrhuap.dll");
-    if dll_source.exists() {
-        std::fs::copy(&dll_source, target_dir.join("nkrhuap.dll"))
-            .expect("Falha ao copiar nkrhuap.dll para o target");
+    let target_os = env::var("CARGO_CFG_TARGET_OS").unwrap();
+    let (prefix, extension) = if target_os == "windows" {
+        ("", "dll")
+    } else {
+        ("lib", "so")
+    };
+
+    let nkrhuap_lib = format!("{}nkrhuap.{}", prefix, extension);
+    let sdl_lib = format!("{}SDL3.{}", prefix, extension);
+
+    let nkrhuap_source = build_dir.join(&nkrhuap_lib);
+    if nkrhuap_source.exists() {
+        std::fs::copy(&nkrhuap_source, target_dir.join(&nkrhuap_lib)).unwrap();
     }
+
+    let sdl_source = build_dir.join(&sdl_lib);
+    if sdl_source.exists() {
+        std::fs::copy(&sdl_source, target_dir.join(&sdl_lib)).unwrap();
+    }
+
     println!(
         "cargo:rustc-link-search=native={}",
         build_dir.to_str().unwrap()
     );
     println!("cargo:rustc-link-lib=dylib=nkrhuap");
+    println!("cargo:rustc-link-lib=dylib=SDL3");
+
+    //  No Linux, diz ao linker para embutir o diretório do binário como caminho de busca.
+    if target_os == "linux" {
+        print!("cargo:rustc-link-arg=Wl,-rpath,$ORIGIN");
+    }
 
     println!("cargo:rerun-if-changed=../src/");
     println!("cargo:rerun-if-changed=../CMakeLists.txt");

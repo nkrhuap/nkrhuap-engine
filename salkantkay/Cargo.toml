@@ -3,4 +3,8 @@ name = "salkantkay"
 version = "0.1.0"
 edition = "2024"
 
+[build-dependencies]
+vcpkg = "0.2"
+
 [dependencies]
+sdl3-sys = {version = "0.7"}
