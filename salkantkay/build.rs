@@ -69,19 +69,23 @@ fn main() {
     );
 
     if target_os == "windows" {
-        vcpkg::Config::new()
-            .emit_includes(true)
-            .find_package("sdl3")
-            .expect("Não foi possivel encontrar o SDL3 via vcpkg");
-    } else {
-        print!("cargo:rustc-link-lib=dylib=SDL3")
+        let manifest_installed = build_dir.join("vcpkg_installed").join("x64-windows");
+
+        let mut config = vcpkg::Config::new();
+        if manifest_installed.exists() {
+            let lib_dir = manifest_installed.join("lib");
+            println!("cargo:rustc-link-search=native={}", lib_dir.display());
+            println!("cargo:rustc-link-lib=dylib=SDL3");
+        } else {
+            config.emit_includes(true).find_package("sdl3").unwrap();
+        }
     }
 
     println!("cargo:rustc-link-lib=dylib=nkrhuap");
 
     //  No Linux, diz ao linker para embutir o diretório do binário como caminho de busca.
     if target_os == "linux" {
-        print!("cargo:rustc-link-arg=-Wl,-rpath,$ORIGIN");
+        println!("cargo:rustc-link-arg=-Wl,-rpath,$ORIGIN");
     }
 
     println!("cargo:rerun-if-changed=../src/");
